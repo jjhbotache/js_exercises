@@ -67,6 +67,8 @@ function operacion(operacion_recibida = operacion_a_ejecutar) {
 }
 
 function borrar() {
+  numero1 = 0;
+  numero2 = undefined;
   pantalla.value = "";
 }
 function borrarUno() {
@@ -74,3 +76,41 @@ function borrarUno() {
   pantalla.value =  str.slice(0,pantalla.value.length-1);
 
 }
+
+// ----------------------------------------------------------------------------------------------------
+
+setInterval(()=>{
+  const time = new Date();
+  document.getElementById("horas").innerHTML=time.getHours(); //returns value 0-23 for the current hour
+  document.getElementById("minutos").innerHTML=time.getMinutes(); //returns value 0-59 for the current minute of the hour
+  document.getElementById("segundos").innerHTML=time.getSeconds(); //returns value 0-59 for current second of the minute
+
+},500)
+
+let horas,minutos,segundos;
+
+function temporizador(scs,mins=0,hrs=0) {
+  let h = hrs * 3600;
+  let m = mins * 60;
+  let s = scs;
+  let tiempo_restante = h+m+s;
+
+  t = setInterval(() => {
+    tiempo_restante--;      
+    document.getElementById("temporizador-input").value = tiempo_restante;
+    if (tiempo_restante < 1) {clearInterval(t);}
+  }, 1000); 
+}
+
+document.getElementById("empezar-temporizador").addEventListener('click', ()=>{
+  temporizador(document.getElementById("temporizador-input").value);
+})
+
+const input = document.getElementById("temporizador-input");
+document.getElementById("empezar").addEventListener('click', ()=>{
+  input.value = 0;
+  const i = setInterval(() => {input.value = parseInt(input.value)+1;},1000);
+})
+document.getElementById("parar").addEventListener('click', ()=>{
+  clearInterval(i);
+})
